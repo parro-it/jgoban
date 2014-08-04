@@ -1,0 +1,140 @@
+/*!
+ * jGoBoard v1.5
+ * http://www.jgoboard.com/
+ *
+ * This software is licensed under a Creative Commons Attribution-NonCommercial 3.0 Unported License:
+ * http://creativecommons.org/licenses/by-nc/3.0/
+ * If you want to negotiate on a commercial license, please contact the author.
+ *
+ * Date: 2011-03-05
+ */
+
+@import "img.less";
+
+/* Board object - sizes of margins and required shadow clipping is defined in the .js file */
+.jgo_board {
+	.icon-board;
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	font-size: 12px;
+	position: relative;
+	margin: 0;
+	padding: 0;
+}
+
+/* Container for stones - should be the size of these PNG files */
+.jgo_b, .jgo_w , .jgo_c, .jgo_f {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	z-index: 10;
+}
+
+ 
+.jgo_b { .icon-black; }
+.jgo_w { .icon-white; }
+.jgo_f { .icon-fill; }
+
+.jgo_d {
+	opacity: 0.5;
+}
+
+/* Container for markers - should be the the same size as stones */
+.jgo_m {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	z-index: 20;
+}
+
+/* Special markers for black and white stone hover effect - set on empty intersections */
+.jgo_m.hover_b:hover { opacity: 0.6; .icon-black; }
+.jgo_m.hover_w:hover { opacity: 0.6; .icon-white; }
+
+.jgo_m.square_b { .icon-square_b; }
+.jgo_m.square_w { .icon-square_w; }
+.jgo_m.triangle_b { .icon-triangle_b; }
+.jgo_m.triangle_w { .icon-triangle_w; }
+.jgo_m.circle_b { .icon-circle_b; }
+.jgo_m.circle_w { .icon-circle_w; }
+.jgo_m.cross_b { .icon-cross_b; }
+.jgo_m.cross_w { .icon-cross_w; }
+.jgo_m.territory_b { .icon-territory_b; }
+.jgo_m.territory_w { .icon-territory_w; }
+
+.jgo_m.white {
+	color: white;
+}
+
+.jgo_m.white, .jgo_m.black {
+	font-weight: bold;
+	line-height: 28px;
+	font-size: 14px;
+	text-align: center;
+}
+
+/* Shadow is larger than the squares, and code handles clipping on board edges separately */
+.jgo_sh {
+	display: none;
+	position: absolute;
+	z-index: 5;
+	.icon-shadow;
+}
+
+/* Coordinate labels */
+.jgo_coord {
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	font-weight: bold;
+	font-size: 11px;
+	line-height: 24px;
+	color: #ccc;
+	text-align: center;
+}
+
+/* jgo_auto styles */
+a.jgo_auto {
+	text-decoration: none;
+	color: black;
+}
+
+a.jgo_auto.disabled, .disabled {
+	color: #ccc;
+}
+
+a.jgo_auto:hover {
+	text-decoration: underline;
+}
+
+.jgo_auto {
+	width: 650px;
+	text-align: center;
+}
+
+.jgo_controls {
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	font-size: 12px;
+}
+
+.jgo_moves {
+	float: left;
+	width: 240px;
+	/*background-color: #ccf;*/
+}
+
+.jgo_variations {
+	float: left;
+	width: 170px;
+	/*background-color: #cfc;*/
+}
+
+.jgo_captures {
+	float: left;
+	width: 240px;
+	/*background-color: #fcc;*/
+}
+
+.jgo_mini {
+	margin: 0;
+	padding: 0;
+}
