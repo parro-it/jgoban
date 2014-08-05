@@ -5,6 +5,7 @@ before_script:
   - npm install -g gulp
 
 before_install:  
+  - sudo apt-get install gnugo
   - sudo apt-get install libcairo2-dev
   - sudo apt-get install libjpeg-dev
   - sudo apt-get install libgif-dev
