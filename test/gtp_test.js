@@ -117,6 +117,15 @@ describe.only('Session', function() {
         }).catch(done);
     });
 
+    it('resolve genMove', function(done) {
+        this.sess.genMove('B').then(function(result) {
+            result.ok.should.be.equal(true);
+            result.resigned.should.be.equal(false);
+            result.move.should.match(/[A-Z]\d\d?/);
+            done();
+        }).catch(done);
+    });
+
     it('reject unknown commands', function(done) {
         this.sess.runCommand('bad\n')
 
