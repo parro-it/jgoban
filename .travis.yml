@@ -9,3 +9,4 @@ before_install:
   - sudo apt-get install libcairo2-dev
   - sudo apt-get install libjpeg-dev
   - sudo apt-get install libgif-dev
+  - which gnugo
