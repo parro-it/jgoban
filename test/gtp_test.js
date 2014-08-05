@@ -107,7 +107,15 @@ describe.only('Session', function() {
         }).catch(done);
     });
 
+    it('resolve play', function(done) {
+        this.sess.play('B','A2').then(function(result) {
+            result.should.be.deep.equal({
+                ok: true
+            });
 
+            done();
+        }).catch(done);
+    });
 
     it('reject unknown commands', function(done) {
         this.sess.runCommand('bad\n')
