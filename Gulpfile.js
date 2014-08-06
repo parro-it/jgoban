@@ -38,10 +38,14 @@ gulp.task('build-img', function() {
     var spritesmith = require('gulp.spritesmith');
     var spriteData = gulp.src('assets/img/normal/*.png').pipe(spritesmith({
         imgName: 'jgoban.png',
-        cssName: 'img.less'
+        cssName: 'img.css'
     }));
     spriteData.img.pipe(gulp.dest('dist'));
-    spriteData.css.pipe(gulp.dest('assets/styles'));
+    spriteData.css
+        .pipe($.rename('img.less'))
+        .pipe(gulp.dest('assets/styles'));
+
+    gulp.src('assets/img/*.jpg').pipe(gulp.dest('dist'));
 });
 
 gulp.task('build-styles', function() {

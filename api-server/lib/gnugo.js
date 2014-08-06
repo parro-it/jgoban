@@ -2,25 +2,37 @@
 
 var util = require('./util');
 var servePromise = util.servePromise;
-
-var Session = require('../../lib/gtp.js');
+var stones = require('../../lib/stones');
+var Session = require('../../lib/gtp');
 var session = new Session();
 
-var start = servePromise(function() {
-    
+var playing = servePromise(function(request) {
+    session.color =  request.params.color;
+    session.otherPlayerColor = stones[session.color].other.abbrev;
     return session.boardsize(19);
 });
 
 var play = servePromise(function(request) {
-    return session.play('B', request.params.move)
+    return session.play(session.otherPlayerColor, request.params.move)
         .then(function() {
-            return session.genMove('W');
+            return session.genMove(session.color);
         });
 
 });
 
+var start = servePromise(function() {
+    return session.genMove(session.color);
+    
+});
+
 
 function register(plugin, options, next) {
+    plugin.route([{
+        path: '/gnugo/playing/{color}',
+        method: 'GET',
+        handler: playing
+    }]);
+
     plugin.route([{
         path: '/gnugo/start',
         method: 'GET',
