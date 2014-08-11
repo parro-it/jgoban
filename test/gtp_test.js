@@ -15,7 +15,7 @@ chai.should();
 var Session = require('../lib/gtp.js');
 
 describe.only('Session', function() {
-    this.timeout(1000);
+    this.timeout(5000);
 
     after(function() {
         this.sess.quit();
@@ -68,9 +68,18 @@ describe.only('Session', function() {
         }).catch(done);
     });
 
-    it('resolve fixedHandicap', function(done) {
-        this.sess.fixedHandicap(2).then(function(result) {
+    it('resolve finalScore', function(done) {
+        var sess = this.sess;
+
+        sess.loadSgf('./test/files/test-score.sgf')
+
+        .then(function(){
+            return sess.finalScore();
+        })
+
+        .then(function(result) {
             result.should.be.deep.equal({
+                result: 'W+1.5',
                 ok: true
             });
 

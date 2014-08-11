@@ -26,11 +26,23 @@ var start = servePromise(function() {
     
 });
 
+
+var score = servePromise(function() {
+    return session.finalScore();
+    
+});
+
 function register(plugin, options, next) {
     plugin.route([{
         path: '/gnugo/playing/{color}',
         method: 'GET',
         handler: playing
+    }]);
+
+     plugin.route([{
+        path: '/gnugo/score',
+        method: 'GET',
+        handler: score
     }]);
 
     plugin.route([{
