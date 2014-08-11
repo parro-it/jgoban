@@ -2,6 +2,7 @@
 
 var error = require('hapi').error;
 var multiline = require('multiline');
+var GtpError = require('../../lib/gtp').GtpError;
 
 function adminRoute(fn) {
     return function(request, reply) {
@@ -33,6 +34,32 @@ function servePromise(fn){
     };
 }
 
+
+function serveGtpPromise(fn){
+    return function(request, reply) {
+        
+        var promise = fn(request);
+        
+        promise
+            .then(function(result) {
+                if (result === null) {
+                    return reply(error.notFound('resource not found'));
+                }
+                reply(result);
+            }).
+            catch (function(err) {
+                if (err instanceof GtpError) {
+                    return reply({
+                        ok: false,
+                        reason: err.message
+                    });    
+                }
+                reply(error.internal('while reading resource', err));
+            });
+    };
+}
+
+
 Function.prototype.hapiNotes = function(fn){
     this.notes = multiline(fn);
 };
@@ -59,6 +86,7 @@ function makeConfig(fn,validate) {
 module.exports = {
     adminRoute: adminRoute,
     servePromise: servePromise,
+    serveGtpPromise: serveGtpPromise,
     makeConfig: makeConfig
 
 };

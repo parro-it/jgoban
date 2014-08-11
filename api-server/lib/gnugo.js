@@ -1,7 +1,7 @@
 'use strict';
 
 var util = require('./util');
-var servePromise = util.servePromise;
+var servePromise = util.serveGtpPromise;
 var stones = require('../../lib/stones');
 var Session = require('../../lib/gtp');
 var session = new Session();
@@ -14,6 +14,7 @@ var playing = servePromise(function(request) {
 
 var play = servePromise(function(request) {
     return session.play(session.otherPlayerColor, request.params.move)
+        .delay(5000)
         .then(function() {
             return session.genMove(session.color);
         });
@@ -24,7 +25,6 @@ var start = servePromise(function() {
     return session.genMove(session.color);
     
 });
-
 
 function register(plugin, options, next) {
     plugin.route([{
