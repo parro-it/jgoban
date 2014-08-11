@@ -14,7 +14,7 @@ var playing = servePromise(function(request) {
 
 var play = servePromise(function(request) {
     return session.play(session.otherPlayerColor, request.params.move)
-        .delay(5000)
+        //.delay(5000)
         .then(function() {
             return session.genMove(session.color);
         });

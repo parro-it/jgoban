@@ -68,6 +68,16 @@ describe.only('Session', function() {
         }).catch(done);
     });
 
+    it('resolve fixedHandicap', function(done) {
+        this.sess.fixedHandicap(2).then(function(result) {
+            result.should.be.deep.equal({
+                ok: true
+            });
+
+            done();
+        }).catch(done);
+    });
+
     it('resolve setFreeHandicap', function(done) {
         this.sess.setFreeHandicap(['A1', 'A2']).then(function(result) {
             result.should.be.deep.equal({
