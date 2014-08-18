@@ -14,7 +14,7 @@ chai.should();
 
 var Session = require('../lib/gtp.js');
 
-describe.only('Session', function() {
+describe('Session', function() {
     this.timeout(5000);
 
     after(function() {
@@ -58,6 +58,25 @@ describe.only('Session', function() {
     });
 
 
+    it('resolve undo', function(done) {
+        var sess = this.sess;
+
+        sess.play('B', 'A2')
+
+        .then(function() {
+            return sess.undo();
+        })
+
+        .then(function(result) {
+            result.should.be.deep.equal({
+                ok: true
+            });
+
+            done();
+        }).catch(done);
+    });
+
+
     it('resolve fixedHandicap', function(done) {
         this.sess.fixedHandicap(2).then(function(result) {
             result.should.be.deep.equal({
@@ -73,7 +92,7 @@ describe.only('Session', function() {
 
         sess.loadSgf('./test/files/test-score.sgf')
 
-        .then(function(){
+        .then(function() {
             return sess.finalScore();
         })
 
@@ -127,7 +146,7 @@ describe.only('Session', function() {
     });
 
     it('resolve play', function(done) {
-        this.sess.play('B','A2').then(function(result) {
+        this.sess.play('B', 'A2').then(function(result) {
             result.should.be.deep.equal({
                 ok: true
             });

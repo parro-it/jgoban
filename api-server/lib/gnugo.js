@@ -32,6 +32,20 @@ var score = servePromise(function() {
     
 });
 
+
+var showBoard = servePromise(function() {
+    return session.showBoard();
+    
+});
+
+
+var undo = servePromise(function() {
+    return session.undo().then(function(){
+        return session.undo();
+    });
+    
+});
+
 function register(plugin, options, next) {
     plugin.route([{
         path: '/gnugo/playing/{color}',
@@ -43,6 +57,18 @@ function register(plugin, options, next) {
         path: '/gnugo/score',
         method: 'GET',
         handler: score
+    }]);
+
+     plugin.route([{
+        path: '/gnugo/showboard',
+        method: 'GET',
+        handler: showBoard
+    }]);
+
+     plugin.route([{
+        path: '/gnugo/undo',
+        method: 'GET',
+        handler: undo
     }]);
 
     plugin.route([{
